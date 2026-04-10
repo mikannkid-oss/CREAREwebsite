@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build With BMT | Professional Website Development</title>
+
+<style>
+:root{
+  --gold:#d4af37;
+  --dark:#0f172a;
+  --glass:rgba(255,255,255,0.08);
+  --text:#ffffff;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--dark);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ================= FAST HACKER INTRO ================= */
+#intro{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:99999;
+  font-family:monospace;
+  color:#00ff00;
+  font-size:20px;
+  letter-spacing:2px;
+  animation:flash 0.7s ease-out;
+}
+
+@keyframes flash{
+  0%{opacity:0; transform:scale(1.2);}
+  20%{opacity:1;}
+  60%{opacity:1;}
+  100%{opacity:0; transform:scale(1);}
+}
+
+/* ================= MATRIX BACKGROUND ================= */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-2;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  z-index:-1;
+}
+
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.4);
+  position:sticky;
+  top:0;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:15px;
+}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:60px 20px;
+  flex-wrap:wrap;
+}
+
+.header-text{max-width:500px;}
+
+header h1{font-size:28px;}
+
+.profile{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:3px solid var(--gold);
+  box-shadow:0 0 20px var(--gold);
+  object-fit:cover;
+}
+
+/* FORM */
+.container{
+  max-width:700px;
+  margin:20px auto;
+  background:var(--glass);
+  padding:20px;
+  border-radius:12px;
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:6px;
+  outline:none;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  background:var(--gold);
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+  border-radius:6px;
+}
+
+button:hover{
+  background:#6b8e23;
+  color:white;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+  header{
+    flex-direction:column;
+    text-align:center;
+  }
+  .header-text{max-width:100%;}
+  .profile{margin-top:20px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= INTRO ================= -->
+<div id="intro">HACKING SYSTEM ACCESS GRANTED</div>
+
+<!-- MATRIX CANVAS -->
+<canvas id="matrix"></canvas>
+
+<nav>
+  <div><b>Build With BMT</b></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="#form">Request</a>
+  </div>
+</nav>
+
+<header>
+  <div class="header-text">
+    <h1>🚀 Build Your Professional Website</h1>
+    <p>Send your idea and I will design and develop a modern high-quality website for you.</p>
+  </div>
+
+  <img class="profile" src="https://i.pravatar.cc/300">
+</header>
+
+<div class="container" id="form">
+  <h2>Website Request Form</h2>
+
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="email" id="email" placeholder="Email Address">
+
+  <select id="type">
+    <option>Choose website type</option>
+    <option>Business Website</option>
+    <option>Portfolio Website</option>
+    <option>E-commerce Website</option>
+    <option>Blog Website</option>
+  </select>
+
+  <textarea id="idea" rows="6" placeholder="Describe your project idea..."></textarea>
+
+  <button onclick="send()">Send via WhatsApp</button>
+</div>
+
+<script>
+
+/* ================= REMOVE INTRO FAST ================= */
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("intro").style.display="none";
+  },700); // FAST BOOT
+});
+
+/* ================= WHATSAPP FUNCTION ================= */
+function send(){
+  let name=document.getElementById("name").value.trim();
+  let email=document.getElementById("email").value.trim();
+  let type=document.getElementById("type").value;
+  let idea=document.getElementById("idea").value.trim();
+
+  if(!name||!email||!idea||type==="Choose website type"){
+    alert("Fill all fields");
+    return;
+  }
+
+  let msg=
+`New Website Request:
+Name: ${name}
+Email: ${email}
+Type: ${type}
+Idea: ${idea}`;
+
+  window.open("https://wa.me/25549958241?text="+encodeURIComponent(msg));
+}
+
+/* ================= MATRIX ================= */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const fontSize=14;
+let cols=Math.floor(canvas.width/fontSize);
+let drops=Array(cols).fill(1);
+
+function draw(){
+  ctx.fillStyle="rgba(0,0,0,0.08)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle="#00ff00";
+  ctx.font=fontSize+"px monospace";
+
+  for(let i=0;i<drops.length;i++){
+    let text=letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+    if(drops[i]*fontSize>canvas.height && Math.random()>0.975){
+      drops[i]=0;
+    }
+    drops[i]++;
+  }
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+</script>
+
+</body>
+</html>

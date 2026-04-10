@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMT Ultra Pro Portfolio</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init("YOUR_PUBLIC_KEY");
+</script>
+
+<style>
+:root{
+  --glass:rgba(255,255,255,0.1);
+}
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:black;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* INTRO */
+#intro{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  font-family:monospace;
+  color:#00ff66;
+  transition:opacity 0.4s ease;
+}
+
+.glitch{ animation:blink 0.6s infinite; font-size:20px; }
+@keyframes blink{ 50%{opacity:0.4;} }
+
+/* MATRIX */
+#matrix{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  z-index:-1;
+}
+
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  display:flex;
+  justify-content:space-between;
+  padding:15px;
+  background:rgba(0,0,0,0.6);
+}
+
+nav a{
+  color:white;
+  margin:0 10px;
+  text-decoration:none;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:80px 20px;
+}
+
+.profile{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 0 12px #00ff66;
+}
+
+/* SECTIONS */
+section{
+  max-width:900px;
+  margin:30px auto;
+  padding:20px;
+  background:var(--glass);
+  border-radius:15px;
+  backdrop-filter:blur(10px);
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.8s;
+}
+
+section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ABOUT IMAGE */
+.about-img{
+  width:100%;
+  border-radius:10px;
+  margin:10px 0;
+}
+
+/* SKILLS */
+.bar{
+  background:rgba(255,255,255,0.15);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.bar-fill{
+  height:10px;
+  width:0;
+  background:linear-gradient(90deg,#00ff66,#004d1a);
+  transition:2s;
+}
+
+/* BUTTONS */
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  background:#00ff66;
+  color:black;
+  cursor:pointer;
+}
+
+/* FLOAT */
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  padding:14px;
+  border-radius:50%;
+  font-size:20px;
+  color:white;
+}
+
+.top{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:#00ff66;
+  color:black;
+  padding:10px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.build-btn{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(135deg,#00ff66,#004d1a);
+  color:black;
+  padding:14px 18px;
+  border-radius:30px;
+  font-weight:bold;
+}
+
+/* SOCIALS */
+.socials{
+  position:fixed;
+  right:20px;
+  bottom:150px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.socials a{
+  width:50px;
+  height:50px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:50%;
+  font-size:20px;
+  color:white;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  50%{box-shadow:0 0 15px rgba(255,255,255,0.5);}
+}
+
+.ig{ background:linear-gradient(45deg,#feda75,#d62976,#962fbf); }
+.fb{ background:#1877f2; }
+.th{ background:#000; border:1px solid #444; }
+
+/* ===== BUILD SECTION ===== */
+.build-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  margin-top:15px;
+}
+
+.build-card{
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(0,255,102,0.3);
+  border-radius:12px;
+  padding:15px;
+  transition:0.3s;
+}
+
+.build-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 20px rgba(0,255,102,0.4);
+}
+
+/* PRICING */
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  margin-top:15px;
+}
+
+.price-card{
+  background:rgba(0,0,0,0.6);
+  border:1px solid rgba(0,255,102,0.3);
+  padding:15px;
+  border-radius:12px;
+  text-align:center;
+}
+
+.price-card h3{
+  color:#00ff66;
+}
+
+.price{
+  font-size:22px;
+  margin:10px 0;
+}
+
+/* ORDER BUTTON */
+.order-btn{
+  margin-top:10px;
+  display:inline-block;
+  padding:10px;
+  background:#00ff66;
+  color:black;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <h1 class="glitch">HACKER SYSTEM ACCESS GRANTED</h1>
+</div>
+
+<!-- MATRIX -->
+<canvas id="matrix"></canvas>
+
+<!-- NAV -->
+<nav>
+  <b>BMT ULTRA PRO</b>
+  <div>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#builds">Builds</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="profile" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
+  <h1 id="name"></h1>
+  <p>Professional Web Developer | UI/UX Designer</p>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>About Me</h2>
+<img class="about-img" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
+<p>I am a passionate web developer focused on modern, responsive and high-performance websites.</p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+<h2>Skills</h2>
+<p>HTML</p><div class="bar"><div class="bar-fill" data="98%"></div></div>
+<p>CSS</p><div class="bar"><div class="bar-fill" data="95%"></div></div>
+<p>JavaScript</p><div class="bar"><div class="bar-fill" data="85%"></div></div>
+</section>
+
+<!-- BUILDS (NOW ABOVE CONTACT) -->
+<section id="builds">
+<h2>Things I Can Build</h2>
+
+<div class="build-grid">
+  <div class="build-card">💼 Business Websites</div>
+  <div class="build-card">🛒 E-Commerce Stores</div>
+  <div class="build-card">📁 Portfolio Websites</div>
+  <div class="build-card">🤖 AI Web Apps</div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+<h2>Pricing Packages</h2>
+
+<div class="pricing">
+
+  <div class="price-card">
+    <h3>Basic</h3>
+    <div class="price">$50</div>
+    <p>Simple website</p>
+    <a class="order-btn" href="build.html">Order</a>
+  </div>
+
+  <div class="price-card">
+    <h3>Pro</h3>
+    <div class="price">$120</div>
+    <p>Business website</p>
+    <a class="order-btn" href="build.html">Order</a>
+  </div>
+
+  <div class="price-card">
+    <h3>Premium</h3>
+    <div class="price">$250</div>
+    <p>Full system + AI features</p>
+    <a class="order-btn" href="build.html">Order</a>
+  </div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>Contact</h2>
+<form>
+<input placeholder="Name" style="width:100%;padding:10px;margin:5px 0;">
+<input placeholder="Email" style="width:100%;padding:10px;margin:5px 0;">
+<textarea placeholder="Message" style="width:100%;padding:10px;margin:5px 0;height:120px;"></textarea>
+<button>Send</button>
+</form>
+</section>
+
+<!-- FLOAT -->
+<a class="whatsapp" href="https://wa.me/255749958241">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<div class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<a class="build-btn" href="build.html">✨Build Website✨</a>
+
+<!-- SOCIALS -->
+<div class="socials">
+  <a class="ig" href="https://www.instagram.com/__.mikann/#"><i class="fa-brands fa-instagram"></i></a>
+  <a class="fb" href="https://www.facebook.com/kis mikanny"><i class="fa-brands fa-facebook-f"></i></a>
+  <a class="th" href="#"><i class="fa-brands fa-threads"></i></a>
+</div>
+
+<script>
+/* MATRIX */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+resize();addEventListener("resize",resize);
+
+const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%";
+const fontSize=15;
+let cols=Math.floor(canvas.width/fontSize);
+let drops=Array(cols).fill(1);
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.08)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#00ff66";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+let text=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+if(drops[i]*fontSize>canvas.height&&Math.random()>0.98)drops[i]=0;
+drops[i]++;}
+
+requestAnimationFrame(draw);
+}
+draw();
+
+/* NAME */
+let nameText="BALTAZARY MELCHIORY TARIMO";
+let i=0;
+function type(){
+if(i<nameText.length){
+document.getElementById("name").innerHTML+=nameText[i++];
+setTimeout(type,60);
+}}
+type();
+
+/* SCROLL */
+addEventListener("scroll",()=>{
+document.querySelectorAll("section").forEach(s=>{
+if(scrollY>s.offsetTop-500)s.classList.add("show");
+});
+if(scrollY>skills.offsetTop-300){
+document.querySelectorAll(".bar-fill").forEach(b=>b.style.width=b.dataset.data||b.getAttribute("data"));
+}
+});
+
+/* INTRO */
+addEventListener("load",()=>{
+setTimeout(()=>{
+intro.style.opacity="0";
+setTimeout(()=>intro.style.display="none",400);
+},900);
+});
+</script>
+
+</body>
+</html>
